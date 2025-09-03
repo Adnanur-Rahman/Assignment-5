@@ -27,16 +27,32 @@ document.querySelectorAll(".copy").forEach((button) => {
     navigator.clipboard.writeText(number);
   });
 });
-const calls = document.getElementsByClassName("call");
+
 let coin = parseInt(document.getElementById("coin").innerText);
-for (let call of calls) {
-  call.addEventListener("click", function () {
+document.querySelectorAll(".call").forEach((button) => {
+  button.addEventListener("click", () => {
+    const card = button.closest(".rounded-lg");
+    if (!card) return;
+
+    const serviceName = card.querySelector("h2").innerText;
+    const number = card.querySelector(".num-copy").innerText;
+
     if (coin < 20) {
-      alert("Not enough coin to call");
-    } else {
-      coin = coin - 20;
-      document.getElementById("coin").innerText = copyCount;
-      alert();
+      alert("Not enough coins to call");
+      return;
     }
+
+    coin = coin - 20;
+    document.getElementById("coin").innerText = coin;
+
+    alert(`📞 Calling ${serviceName} ${number}...`);
+    let update = document.getElementById("update");
+    const history = document.createElement("div");
+    history.innerHTML = ` <div class="flex gap-2">
+        <p>${serviceName} <br> ${number}</p>
+        <p>${new Date().toLocaleTimeString()}</p>
+
+    </div>`;
+    update.appendChild(history);
   });
-}
+});
