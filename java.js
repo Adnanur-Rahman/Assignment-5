@@ -48,11 +48,16 @@ document.querySelectorAll(".call").forEach((button) => {
     alert(`📞 Calling ${serviceName} ${number}...`);
     let update = document.getElementById("update");
     const history = document.createElement("div");
-    history.innerHTML = ` <div class="flex gap-2">
-        <p>${serviceName} <br> ${number}</p>
+    history.innerHTML = ` <br><div class="flex gap-5">
+        <p ><span class="font-bold">${serviceName}</span> <br> ${number}</p>
         <p>${new Date().toLocaleTimeString()}</p>
-
+<br>
     </div>`;
     update.appendChild(history);
+    document
+      .getElementById("clear-button")
+      .addEventListener("click", function () {
+        history.innerHTML = ``;
+      });
   });
 });
